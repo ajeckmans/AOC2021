@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.TestSdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <GenerateProgramFile>false</GenerateProgramFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="day1_tests.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+      <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.12.13" />
+    </ItemGroup>
+
+</Project>
