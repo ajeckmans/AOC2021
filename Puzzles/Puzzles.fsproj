@@ -10,12 +10,16 @@
 
     <ItemGroup>
         <EmbeddedResource Include="inputs\day1.txt" />
+        <EmbeddedResource Include="inputs\day2.txt" />
         <Compile Include="inputs\marker.fs" />
-        <Compile Include="Library.fs" />
-        <Compile Include="Tests.fs" />
+        <Compile Include="day1.fs" />
+        <Compile Include="day1.tests.fs" />
+        <Compile Include="day2.fs" />
+        <Compile Include="day2.tests.fs" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FSharpPlus" Version="1.2.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">

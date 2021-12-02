@@ -3,7 +3,7 @@ namespace Puzzles
 open Puzzles
 open Xunit
 
-type ``Day 1``() =
+type ``Day 1 Tests``() =
    
     [<Fact>]
     let ``part1: sample input`` () =
