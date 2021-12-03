@@ -3,7 +3,6 @@
 open System
 open System.IO
 open FSharpPlus
-open FSharpPlus
 open FSharpPlus.Data
 open Puzzles
 
@@ -33,15 +32,15 @@ module Day3 =
         
         
     let solve_2 (input: string list) =
-       let rec findEntry bit_criteria pos (input: string list) =
-           let total, numOnes = input |> Seq.map (Seq.item pos) |> (fun x -> (Seq.length x, x |> Seq.where (fun item -> item = '1') |> Seq.length))
-           let mostCommon = if bit_criteria (decimal numOnes) ((decimal total) / 2M) then '1' else '0'
-           let list = (input |> List.where (fun x -> x.Chars pos = mostCommon ) )
+       let rec findEntry bit_selection_criteria bit_position (input: string list) =
+           let total, numOnes = input |> Seq.map (Seq.item bit_position) |> (fun x -> (Seq.length x, x |> Seq.where (fun item -> item = '1') |> Seq.length))
+           let bitToSelectOn = if bit_selection_criteria (decimal numOnes) ((decimal total) / 2M) then '1' else '0'
+           let list = (input |> List.where (fun x -> x.Chars bit_position = bitToSelectOn ) )
 
            match list with
            | [] -> failwith "oops"
            | [item] -> item
-           | rest -> findEntry bit_criteria (pos+1) rest
+           | rest -> findEntry bit_selection_criteria (bit_position+1) rest
                     
        let oxygenGeneratorRating = Convert.ToInt32(findEntry (>=) 0 input, 2)    
        let c02ScrubberRating = Convert.ToInt32(findEntry (<) 0 input, 2)
