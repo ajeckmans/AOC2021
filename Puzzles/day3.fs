@@ -23,13 +23,12 @@ module Day3 =
             for i in 0 .. (Seq.head chars).Length - 1 do
                let total, numOnes = chars |> Seq.map (Seq.item i) |> (fun x -> (Seq.length x, x |> Seq.where (fun item -> item = '1') |> Seq.length))
                yield if (decimal numOnes) >= ((decimal total) / 2M) then '1' else '0'
-       } |> String.ofSeq
+       }
+       |> String.ofSeq
        |> fun s ->
             let mask = Convert.ToInt32(String.init s.Length (fun _ -> "1"), 2)
             let n = Convert.ToInt32(s, 2)
-            (n &&& mask, ~~~n &&& mask)
-       |> (fun (a,b) -> b * a)
-        
+            (n &&& mask) * (~~~n &&& mask)        
         
     let solve_2 (input: string list) =
        let rec findEntry bit_selection_criteria bit_position (input: string list) =
