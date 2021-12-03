@@ -33,17 +33,17 @@ module Day3 =
         
         
     let solve_2 (input: string list) =
-       let findEntry bit_criteria (input: string list) =
-           let mutable list = input
-           let mutable pos = 0
-           while list.Length > 1 || list.Length > 1 do
-               let total, numOnes = list |> Seq.map (Seq.item pos) |> (fun x -> (Seq.length x, x |> Seq.where (fun item -> item = '1') |> Seq.length))
-               let mostCommon = if bit_criteria (decimal numOnes) ((decimal total) / 2M) then '1' else '0'
-               list <- (list |> List.where (fun x -> x.Chars pos = mostCommon ) )
-               pos <- pos + 1
-           List.head list
-              
-       let oxygenGeneratorRating = Convert.ToInt32(findEntry (>=) input, 2)    
-       let c02ScrubberRating = Convert.ToInt32(findEntry (<) input, 2)
+       let rec findEntry bit_criteria pos (input: string list) =
+           let total, numOnes = input |> Seq.map (Seq.item pos) |> (fun x -> (Seq.length x, x |> Seq.where (fun item -> item = '1') |> Seq.length))
+           let mostCommon = if bit_criteria (decimal numOnes) ((decimal total) / 2M) then '1' else '0'
+           let list = (input |> List.where (fun x -> x.Chars pos = mostCommon ) )
+
+           match list with
+           | [] -> failwith "oops"
+           | [item] -> item
+           | rest -> findEntry bit_criteria (pos+1) rest
+                    
+       let oxygenGeneratorRating = Convert.ToInt32(findEntry (>=) 0 input, 2)    
+       let c02ScrubberRating = Convert.ToInt32(findEntry (<) 0 input, 2)
        
        oxygenGeneratorRating * c02ScrubberRating
