@@ -13,5 +13,5 @@ type ``Day 3 Tests``() =
 
     [<Fact>]
     let ``part2: actual input`` () =
-        let result = solve_2 (input |> Seq.toList)
+        let result = solve_2 input
         Assert.Equal(2135254, result)
