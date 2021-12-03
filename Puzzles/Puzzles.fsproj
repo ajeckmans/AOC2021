@@ -1,21 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
         <GenerateProgramFile>false</GenerateProgramFile>
         <OutputType>Library</OutputType>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <EmbeddedResource Include="inputs\day1.txt" />
         <EmbeddedResource Include="inputs\day2.txt" />
+        <EmbeddedResource Include="inputs\day3.txt" />
         <Compile Include="inputs\marker.fs" />
         <Compile Include="day1.fs" />
         <Compile Include="day1.tests.fs" />
         <Compile Include="day2.fs" />
         <Compile Include="day2.tests.fs" />
+        <Compile Include="day3.fs" />
+        <Compile Include="day3.tests.fs" />
     </ItemGroup>
 
     <ItemGroup>
