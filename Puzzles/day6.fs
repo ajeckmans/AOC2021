@@ -12,23 +12,16 @@ module Day6 =
         reader.ReadLine()
             |> String.split [","]
             |> Seq.map int
+            |> Seq.groupBy id
+            |> Seq.sortBy fst
+            |> Seq.map (fun (_, list) -> length list |> int64)
             |> List.ofSeq
-            |> List.groupBy id
-            |> List.map (fun (x,list) -> x, length list |> int64)
+            |> (fun x -> (x @ [0L;0L;0L;0L;0L;0L;0L;0L;0L]).[0..8])
 
     let run runs input =
-        [1 .. runs]
-        |> Seq.fold (fun state _ ->
-            let  updatedFishes, newFishes =
-                state
-                |> List.mapFold (fun state (nextProduction, amount) ->
-                    match nextProduction - 1 with
-                    | -1 -> (6, amount), state + amount
-                    | fish -> (fish, amount), state 
-                ) 0L
-            (updatedFishes @ [(8, newFishes)])
-            ) input
-        |> Seq.sumBy snd
+        [1 .. runs - 1]
+        |> Seq.fold (fun state _ -> List.map2 (+) (state.[1..] @ [0L]) [0L;0L;0L;0L;0L;0L;state.[0];0L;state.[0]]) input
+        |> Seq.sum
         
     let solve_1 input =
         run 80 input
