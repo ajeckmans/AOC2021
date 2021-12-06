@@ -2,17 +2,17 @@ namespace Puzzles
 
 open Puzzles
 open Xunit
-open Day4
 
 type ``Day 4 Tests``() =
+    let input = Day4.input
    
     [<Fact>]
     let ``part1: actual input`` () =
-        let result = solve_1 input
-        Assert.Equal(51034, result)
+        let result = Day4.solve_1 input
+        Assert.Equal(Some 51034, result)
         
         
     [<Fact>]
     let ``part2: actual input`` () =
-        let result = solve_2 input
-        Assert.Equal(5434, result)
+        let result = Day4.solve_2 input
+        Assert.Equal(Some 5434, result)

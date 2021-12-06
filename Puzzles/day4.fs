@@ -13,7 +13,7 @@ module Day4 =
         let numbers =
             reader.ReadLine()
             |> fun s -> s.Split(',')
-            |> Array.ofSeq
+            |> List.ofSeq
 
         let cards = 
             seq {
@@ -51,56 +51,40 @@ module Day4 =
             card
             |> Seq.cast<string>
             |> Seq.where (fun x -> x <> "x" )
-            |> Seq.sumBy int
+            |> Seq.sumBy (int)
         
-        sumOfUnmarked * (int currentNumber)
+        sumOfUnmarked * (currentNumber |> int)
         
-    let solve_1 (input: string[] * string[,] list) =      
-        let numbers = input |> fst
+    let solve_1 (input: string list * string[,] list) =
+        let rec getWinningCard (numbers, cards) =
+            match numbers with
+            | [] -> None
+            | currentNumber::remainders ->  
+                let newCards = cards |> List.map (updateCard currentNumber)
+                match newCards |> Seq.tryFind cardIsWinner with
+                    | Some card -> Some (calculateCardScore currentNumber card) 
+                    | _ -> getWinningCard (remainders, newCards)
+        getWinningCard input
         
-        seq {
-            let mutable cards = input |> snd 
-            let mutable cardWon = false
-            let mutable step = 0
-            
-            while cardWon = false do
-                let currentNumber = numbers.[step]
-                cards <- cards |> List.map (updateCard currentNumber)
-                
-                match cards |> Seq.tryFind cardIsWinner with
-                | Some card ->
-                    cardWon <- true
-                    yield calculateCardScore currentNumber card 
-                | _ -> ()
-
-                step <- step + 1
-        } |> Seq.head
-        
-    let solve_2 (input: string[] * string[,] list) =      
-        let numbers = input |> fst
-        
-        seq {
-            let mutable cards = input |> snd 
-            let mutable cardWon = false
-            let mutable step = 0
-            
-            while cardWon = false do
-                let currentNumber = numbers.[step]
+    let solve_2 (input: string list * string[,] list) =
+        let rec getWinningCard (numbers, cards) =
+            match numbers with
+            | [] -> None
+            | currentNumber::remainders ->
                 let newCards, changed =
                     cards
                     |> List.mapFold (fun state elem ->
                         let newCard = updateCard currentNumber elem
-                        if newCard <> elem && cardIsWinner elem = false && cardIsWinner newCard then
+                        if cardIsWinner elem = false && cardIsWinner newCard then
                             newCard, state @ [newCard]
                         else
                             newCard, state
                         ) []
-                cards <- newCards
-                    
-                if cards |> Seq.forall cardIsWinner then
-                    yield changed
-                        |> Seq.last
-                        |> calculateCardScore currentNumber
-                    
-                step <- step + 1
-        } |> Seq.head
+                if newCards |> Seq.forall cardIsWinner then
+                    changed
+                    |> Seq.head
+                    |> fun card -> Some (calculateCardScore currentNumber card)
+                else  getWinningCard (remainders, newCards)
+                 
+        getWinningCard input
+        
