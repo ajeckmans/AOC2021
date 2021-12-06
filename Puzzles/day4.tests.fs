@@ -8,11 +8,11 @@ type ``Day 4 Tests``() =
    
     [<Fact>]
     let ``part1: actual input`` () =
-        let result = solve_1
+        let result = solve_1 input
         Assert.Equal(51034, result)
         
         
     [<Fact>]
     let ``part2: actual input`` () =
-        let result = solve_2
+        let result = solve_2 input
         Assert.Equal(5434, result)
