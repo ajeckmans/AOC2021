@@ -16,32 +16,22 @@ module Day6 =
             |> List.groupBy id
             |> List.map (fun (x,list) -> x, length list |> int64)
 
+    let run runs input =
+        [1 .. runs]
+        |> Seq.fold (fun state _ ->
+            let  updatedFishes, newFishes =
+                state
+                |> List.mapFold (fun state (nextProduction, amount) ->
+                    match nextProduction - 1 with
+                    | -1 -> (6, amount), state + amount
+                    | fish -> (fish, amount), state 
+                ) 0L
+            (updatedFishes @ [(8, newFishes)])
+            ) input
+        |> Seq.sumBy snd
         
-    let updateList fishes =
-        fishes
-        |> List.mapFold (fun state (nextProduction, amount) ->
-                match nextProduction - 1 with
-                | -1 -> (6, amount), state + amount
-                | fish -> (fish, amount), state 
-            ) 0L
-    
-    let condense list =
-        list
-        |> List.groupBy fst
-        |> List.map (fun (x,list) -> x, list |> Seq.sumBy snd)
-            
     let solve_1 input =
-        [1 .. 80]
-        |> Seq.fold (fun state _ ->
-            let  updatedFishes, newFishes = state |> updateList
-            (updatedFishes @ [(8, newFishes)]) |> condense
-        ) input
-        |> Seq.sumBy snd
-
+        run 80 input
+        
     let solve_2 input = 
-        [1 .. 256]
-        |> Seq.fold (fun state _ ->
-            let  updatedFishes, newFishes = state |> updateList
-            updatedFishes @ [8, newFishes]
-        ) input
-        |> Seq.sumBy snd
+        run 256 input
