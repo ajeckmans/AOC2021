@@ -1,6 +1,5 @@
 ﻿namespace Puzzles
 
-open System
 open System.IO
 open FSharpPlus
 open FSharpPlus.Data
@@ -18,14 +17,14 @@ module Day7 =
         let sorted = input |> sort |> Array.ofSeq
         let median = sorted.[(sorted |> length) / 2]
         sorted |> Seq.map (fun x -> (x - median) |> abs) |> Seq.sum
+
+    let solve_2 (input:seq<double>) =
+        let sorted = input |> sort |> Array.ofSeq
+
+        let cost (n:double) = (n/2.) * (n+1.)
+        let calc point =  sorted |> Seq.map (fun x -> (x - point) |> abs |> cost) |> Seq.sum
         
-    let solve_2 input =
-        let cost n = if n = 0L then 0L else [1L..n] |> List.reduce (+)
-        
-        let rec find list lowest position : int64 =
-            match list |> Seq.map (fun x -> cost (x - position |> abs)) |> Seq.sum with
-            | cost when cost > lowest -> lowest
-            | cost when cost < lowest -> find list cost (position+1L)
-            | _ -> find list lowest (position+1L)
-        
-        find input Int64.MaxValue 0L
+        let mean = sorted |> Seq.average       
+        match calc (floor mean), calc (ceil mean) with
+        | a, b when a < b -> a
+        | _, b -> b
