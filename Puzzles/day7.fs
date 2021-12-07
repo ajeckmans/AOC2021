@@ -24,5 +24,5 @@ module Day7 =
         find input Int64.MaxValue 0L (fun x position -> x - position |> abs)
         
     let solve_2 input =
-        let factorial n = if n = 0L then 0L else [1L..n] |> List.reduce (+)
-        find input Int64.MaxValue 0L (fun x position -> factorial (x - position |> abs))
+        let cost n = if n = 0L then 0L else [1L..n] |> List.reduce (+)
+        find input Int64.MaxValue 0L (fun x position -> cost (x - position |> abs))
