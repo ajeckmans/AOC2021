@@ -1,21 +1,13 @@
 ﻿namespace Puzzles
 
-open System.IO
 open FSharpPlus
 open FSharpPlus.Data
 open Puzzles
 
 module Day5 =
-    let input =
-        seq {
-            use stream = inputs.GetResourceStream("day5.txt")
-            use reader = new StreamReader(stream)
-
-            while not reader.EndOfStream do
-                reader.ReadLine()
-                |> sscanf "%d,%d -> %d,%d"
-                |> fun (ax, ay, bx, by) -> if  ax < bx then (ax, ay), (bx, by) else (bx, by), (ax, ay)
-        } |> List.ofSeq
+    let input = inputs.ReadAllLines "day5.txt"
+                |> Seq.map (sscanf "%d,%d -> %d,%d" >> fun (ax, ay, bx, by) -> if  ax < bx then (ax, ay), (bx, by) else (bx, by), (ax, ay))
+                |> List.ofSeq
 
     let getLineCoords line =
         let getNextCoordinate line (x,y) =

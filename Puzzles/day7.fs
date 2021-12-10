@@ -1,21 +1,15 @@
 ﻿namespace Puzzles
 
-open System.IO
 open FSharpPlus
 open FSharpPlus.Data
 open Puzzles
 
 module Day7 =
-    let input =
-        use stream = inputs.GetResourceStream("day7.txt")
-        use reader = new StreamReader(stream)
-        reader.ReadLine()
-            |> String.split [","]
-            |> Seq.map int64
+    let input = inputs.ReadAllLines "day7.txt" |> Seq.map (String.split [","] >> Seq.map int64) |> Seq.head
 
     let solve_1 (input: seq<int64>) =
         let sorted = input |> sort |> Array.ofSeq
-        let median = sorted.[(sorted |> length) / 2]
+        let median = sorted[(sorted |> length) / 2]
         sorted |> Seq.map (fun x -> (x - median) |> abs) |> Seq.sum
 
     let solve_2 (input:seq<double>) =

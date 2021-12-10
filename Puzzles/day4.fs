@@ -21,7 +21,7 @@ module Day4 =
                     reader.ReadLine() |> ignore
                     let numbers =  Array2D.create 5 5 ""
                     for i in 0 .. 4 do
-                        numbers.[i,*] <-
+                        numbers[i,*] <-
                             reader.ReadLine()
                             |> String.replace "  " " "
                             |> String.trimWhiteSpaces
@@ -42,8 +42,8 @@ module Day4 =
     let cardIsWinner (card: string[,]) =
         [0 .. 4]
         |> Seq.exists (fun i ->
-            card.[i,*] |> Seq.forall (fun x -> x = "x" )
-            || card.[*,i] |> Seq.forall (fun x -> x = "x" )
+            card[i,*] |> Seq.forall (fun x -> x = "x" )
+            || card[*,i] |> Seq.forall (fun x -> x = "x" )
         )
         
     let calculateCardScore currentNumber card =

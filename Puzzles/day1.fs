@@ -1,15 +1,7 @@
 ﻿namespace Puzzles
 
-open System.IO
-
 module Day1 =
-    let input =
-        seq {
-            use stream = inputs.GetResourceStream("day1.txt")
-            use reader = new StreamReader(stream)
-            while not reader.EndOfStream do
-                yield reader.ReadLine() |> int
-        }
+    let input = inputs.ReadAllLines "day1.txt" |> Seq.map int
 
     let countIncreasing map input =
         input

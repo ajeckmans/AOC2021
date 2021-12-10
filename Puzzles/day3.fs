@@ -1,20 +1,12 @@
 ﻿namespace Puzzles
 
 open System
-open System.IO
 open FSharpPlus
 open FSharpPlus.Data
 open Puzzles
 
 module Day3 =
-    let input =
-        seq {
-            use stream = inputs.GetResourceStream("day3.txt")
-            use reader = new StreamReader(stream)
-            while not reader.EndOfStream do
-                let line = reader.ReadLine()
-                yield line
-        } |> List.ofSeq
+    let input = inputs.ReadAllLines "day3.txt" |> List.ofSeq
 
     let solve_1 input =      
         input

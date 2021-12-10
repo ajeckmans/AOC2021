@@ -1,6 +1,5 @@
 ﻿namespace Puzzles
 
-open System.IO
 open FSharpPlus
 open Puzzles
 
@@ -9,20 +8,15 @@ module Day2 =
         | Forward of int
         | Down of int
         | Up of int
-        
-    let input =
-        seq {
-            use stream = inputs.GetResourceStream("day2.txt")
-            use reader = new StreamReader(stream)
-            while not reader.EndOfStream do
-                let line = reader.ReadLine()
-                let instr, num = sscanf "%s %i" line
-                yield match instr  with
+    
+    let input = inputs.ReadAllLines "day2.txt"
+                |> Seq.map (sscanf "%s %i" >> fun (instr, num) ->
+                        match instr with
                         | "forward" -> Forward num
                         | "down" -> Down num
                         | "up" -> Up num
-                        | _ -> failwith $"unknown input %s{instr}"
-        }
+                        | _ -> failwith $"unknown input %s{instr}" )
+                |> List.ofSeq
 
     type State = { Horizontal: int; Depth: int; Aim: int }
     
