@@ -2,7 +2,6 @@
 
 open System
 open FSharpPlus
-open FSharpPlus.Data
 open Puzzles
 
 module Day3 =

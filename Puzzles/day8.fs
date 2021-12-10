@@ -2,8 +2,6 @@
 
 open System
 open FSharpPlus
-open FSharpPlus.Data
-open Microsoft.FSharp.Core
 open Puzzles
 
 module Day8 =

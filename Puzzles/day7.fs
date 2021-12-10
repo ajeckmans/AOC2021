@@ -1,7 +1,6 @@
 ﻿namespace Puzzles
 
 open FSharpPlus
-open FSharpPlus.Data
 open Puzzles
 
 module Day7 =
