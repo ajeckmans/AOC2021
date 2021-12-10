@@ -1,8 +1,6 @@
 ﻿namespace Puzzles
 
 open FSharpPlus
-open FSharpPlus.Data
-open FSharpPlus.Lens
 open Puzzles
 
 module Day9 =
@@ -41,13 +39,13 @@ module Day9 =
        |> Array.sumBy (fun (_,_,value,_) -> (value |> string |> int) + 1)
        
         
-    let getAdjacentBasinPoints (point: int * int) max_x max_y : list<(int * int) * int> =
+    let getAdjacentBasinPoints point max_x max_y =
        getNeighbours point max_x max_y
        |> Seq.map (fun (nx, ny) -> (nx, ny), input |> Seq.item ny |> Seq.item nx |> string |> int)
        |> Seq.filter (fun (_, value) -> value <> 9)
        |> List.ofSeq
 
-    let rec findBasin list max_x max_y state : list<int * int>  =
+    let rec findBasin list max_x max_y state  =
         match list with
         | [] -> state
         | head::tail ->
@@ -56,8 +54,8 @@ module Day9 =
             (findBasin newList max_x max_y (state @ found @ [head] |> List.distinct))
             
     let solve_2 (input: seq<seq<char>>) =
-       let maxY = (input |> length) - 1
-       let maxX = (input |> head |> length) - 1
+       let maxY = (input |> Seq.length) - 1
+       let maxX = (input |> Seq.head |> length) - 1
 
        [0..maxX]
        |> Seq.collect (fun x -> [0..maxY] |>Seq.map (fun y -> x, y))
