@@ -1,8 +1,6 @@
 ﻿namespace Puzzles
 
-open System.Collections.Generic
 open FSharpPlus
-open FSharpPlus.Control
 open FSharpPlus.Data
 open FSharpPlus.Lens
 open Puzzles
