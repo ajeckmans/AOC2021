@@ -42,6 +42,8 @@
         <Compile Include="day9.tests.fs" />
         <Compile Include="day10.fs" />
         <Compile Include="day10.tests.fs" />
+        <Compile Include="day11.fs" />
+        <Compile Include="day11.tests.fs" />
     </ItemGroup>
 
     <ItemGroup>
