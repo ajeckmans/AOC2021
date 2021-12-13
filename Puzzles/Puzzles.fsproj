@@ -19,6 +19,8 @@
         <EmbeddedResource Include="inputs\day7.txt" />
         <EmbeddedResource Include="inputs\day8.txt" />
         <EmbeddedResource Include="inputs\day9.txt" />
+        <EmbeddedResource Include="inputs\day10.txt" />
+        <EmbeddedResource Include="inputs\day11.txt" />
         <Compile Include="inputs\marker.fs" />
         <Compile Include="day1.fs" />
         <Compile Include="day1.tests.fs" />
@@ -38,9 +40,12 @@
         <Compile Include="day8.tests.fs" />
         <Compile Include="day9.fs" />
         <Compile Include="day9.tests.fs" />
+        <Compile Include="day10.fs" />
+        <Compile Include="day10.tests.fs" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FParsec" Version="1.1.1" />
         <PackageReference Include="FSharpPlus" Version="1.2.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
         <PackageReference Include="xunit" Version="2.4.1" />
