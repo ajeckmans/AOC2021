@@ -1,15 +1,12 @@
 ﻿namespace Puzzles
 
-open System
 open FSharpPlus
-open Microsoft.VisualBasic.CompilerServices
 open Puzzles
 open FParsec.CharParsers
 open FParsec
 
 module Day10 =
-    let input =
-       inputs.ReadAllLines "day10.txt"
+    let input = inputs.ReadAllLines "day10.txt"
        
     type Token =
         | EmptyBrackets
@@ -27,14 +24,13 @@ module Day10 =
     let token, tokenRef = createParserForwardedToRef<Token, unit>()
 
     let list s e f = between (pstring s) (pstring e) (many token |>> f)
-    let single s e f = between (pstring s) (pstring e) (token |>> (fun x -> [x]) |>> f)
     
     let squareBrackets = (list "[" "]" SquareBrackets)
     let curlyBrackets =  (list "{" "}" CurlyBrackets)
     let angleBrackets = (list "<" ">" AngleBrackets)
     let roundBrackets =  (list "(" ")" RoundBrackets)
     
-    do tokenRef := choice [
+    tokenRef.Value <- choice [
         emptyBrackets
         squareBrackets
         curlyBrackets
