@@ -2,22 +2,30 @@
 
 open FSharpPlus
 open Puzzles
+open Xunit
 
 module Day7 =
-    let input = inputs.ReadAllLines "day7.txt" |> Seq.map (String.split [","] >> Seq.map int64) |> Seq.head
+    let input f = inputs.ReadAllLines "day7.txt" |> Seq.map (String.split [","] >> Seq.map f) |> Seq.head
 
-    let solve_1 (input: seq<int64>) =
-        let sorted = input |> sort |> Array.ofSeq
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let sorted = input int64 |> sort |> Array.ofSeq
         let median = sorted[(sorted |> length) / 2]
-        sorted |> Seq.map (fun x -> (x - median) |> abs) |> Seq.sum
-
-    let solve_2 (input:seq<double>) =
-        let sorted = input |> sort |> Array.ofSeq
+        let result = sorted |> Seq.map (fun x -> (x - median) |> abs) |> Seq.sum
+        Assert.Equal(336721L, result)
+       
+   
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let sorted = input double |> sort |> Array.ofSeq
 
         let cost (n:double) = (n/2.) * (n+1.)
         let calc point =  sorted |> Seq.map (fun x -> (x - point) |> abs |> cost) |> Seq.sum
         
         let mean = sorted |> Seq.average       
-        match calc (floor mean), calc (ceil mean) with
-        | a, b when a < b -> a
-        | _, b -> b
+        let result = 
+            match calc (floor mean), calc (ceil mean) with
+            | a, b when a < b -> a
+            | _, b -> b
+
+        Assert.Equal(91638945., result)

@@ -2,6 +2,7 @@
 
 open FSharpPlus
 open Puzzles
+open Xunit
 
 module Day9 =
     let input =
@@ -70,3 +71,16 @@ module Day9 =
        |> Seq.sortDescending
        |> Seq.take 3
        |> Seq.reduce (*)
+
+   
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let result = solve_1 input
+        Assert.Equal(588, result)
+       
+   
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let result = solve_2 input
+        Assert.Equal(964712, result)
+       

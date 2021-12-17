@@ -3,6 +3,7 @@
 open System
 open Puzzles
 open FSharpPlus
+open Xunit
 
 module Day12 =
     let input () =
@@ -27,7 +28,8 @@ module Day12 =
         else
             paths
     
-    let solve_1 () =
+    [<Fact>]
+    let ``part1: actual input`` () =
         let isLegal paths =
             paths
             |> List.groupBy id
@@ -36,11 +38,16 @@ module Day12 =
         let map = input ()
                   |> List.collect (fun (a, b) -> [a,b;b,a])
                   |> List.groupBy fst |> List.map (fun (k, v) -> k, v |> List.map snd ) |> Map.ofList
-        findPaths map [["start"]] isLegal
-        |> List.filter (fun path -> path |> List.head = "end")
-        |> List.length
         
-    let solve_2 () =
+        let result =
+            findPaths map [["start"]] isLegal
+            |> List.filter (fun path -> path |> List.head = "end")
+            |> List.length
+        
+        Assert.Equal(3576, result)        
+
+    [<Fact>]
+    let ``part2: actual input`` () =
         let isLegal paths =
             let nodeVisitCount = paths |> List.groupBy id |> List.map (fun (k, list) -> k, length list)
             let startCount = nodeVisitCount |> List.find (fun (k, _) -> k = "start") |> snd
@@ -57,6 +64,11 @@ module Day12 =
         let map = input ()
                   |> List.collect (fun (a, b) -> [a,b;b,a])
                   |> List.groupBy fst |> List.map (fun (k, v) -> k, v |> List.map snd ) |> Map.ofList
-        findPaths map [["start"]] isLegal
-        |> List.filter (fun path -> path |> List.head = "end")
-        |> List.length
+      
+      
+        let result =
+            findPaths map [["start"]] isLegal
+            |> List.filter (fun path -> path |> List.head = "end")
+            |> List.length
+            
+        Assert.Equal(84271, result)

@@ -6,9 +6,10 @@ open System.IO
 open System.Text
 open Puzzles
 open FSharpPlus
+open Xunit
 
 module Day14 =
-    let input =
+    let input () =
         use stream = inputs.GetResourceStream("day14.txt")
         use reader = new StreamReader(stream)
 
@@ -23,8 +24,9 @@ module Day14 =
         
         sequence, insertionRules
        
-    let solve_1 () =
-       let sequence, insertionRules = input
+    [<Fact>]
+    let ``part1: actual input`` () =
+       let sequence, insertionRules = input ()
        
        let charCounts =
            [1..10]
@@ -48,12 +50,15 @@ module Day14 =
        let highest = charCounts |> Seq.head 
        let lowest = charCounts |> Seq.last 
        
-       highest - lowest
-              
-    let solve_2 () =
-       let sequence, insertionRules = input
+       let result = highest - lowest
        
-       let sequenceCount =
+       Assert.Equal(2010L, result)
+              
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let sequence, insertionRules = input ()
+       
+        let sequenceCount =
            sequence
            |> Seq.pairwise
            |> Seq.map (fun (a,b) -> string a + string b)
@@ -61,11 +66,11 @@ module Day14 =
            |> Seq.map (fun (a, b) -> (a, b |> int64))
            |> Map.ofSeq
            
-       let initialCount =  Map.union sequenceCount (insertionRules |> Map.mapValues (fun _ -> 0))
-       
-       let ifTrue f o = if Option.isSome o then Some(f o.Value) else None
-       
-       let counted =
+        let initialCount =  Map.union sequenceCount (insertionRules |> Map.mapValues (fun _ -> 0))
+
+        let ifTrue f o = if Option.isSome o then Some(f o.Value) else None
+
+        let counted =
            [1..40]
            |> List.fold ( fun (state: Map<string, int64>) _ ->
                 Seq.fold (fun intermediate (kvp: KeyValuePair<string, int64>)  ->
@@ -82,17 +87,20 @@ module Day14 =
                 ) state state
                ) initialCount
 
-       let firstChar = sequence.Chars 0
-       let charCounts =
+        let firstChar = sequence.Chars 0
+        let charCounts =
            counted
            |> Seq.map (fun x -> x.Key.Chars 1, x.Value)
            |> List.ofSeq
            |> List.append [firstChar, 1]
            |> List.groupBy fst
            |> List.map (fun (_, list) -> list |> Seq.sumBy snd)
-           
-       charCounts
-       |> List.fold (fun (highest, lowest) elem ->
-           (if elem > highest then elem else highest), (if elem < lowest then elem else lowest))
-           (0L,Int64.MaxValue)
-       |> fun (highest, lowest) ->  highest - lowest
+
+        let result = 
+           charCounts
+           |> List.fold (fun (highest, lowest) elem ->
+               (if elem > highest then elem else highest), (if elem < lowest then elem else lowest))
+               (0L,Int64.MaxValue)
+           |> fun (highest, lowest) ->  highest - lowest
+       
+        Assert.Equal(2437698971143L, result)

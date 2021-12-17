@@ -2,6 +2,7 @@
 
 open FSharpPlus
 open Puzzles
+open Xunit
 
 module Day5 =
     let input = inputs.ReadAllLines "day5.txt"
@@ -44,3 +45,15 @@ module Day5 =
     let solve_2 input =
         input
         |> getIntersectionCount
+        
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let result = solve_1 input
+        Assert.Equal(5774, result)
+       
+   
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let result = solve_2 input
+        Assert.Equal(18423, result)
+       

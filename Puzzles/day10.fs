@@ -4,6 +4,7 @@ open FSharpPlus
 open Puzzles
 open FParsec.CharParsers
 open FParsec
+open Xunit
 
 module Day10 =
     let input = inputs.ReadAllLines "day10.txt"
@@ -47,24 +48,29 @@ module Day10 =
         | Success(result, _, pos)   -> $"Success: %A{result}"
         | Failure(errorMsg, _, _) -> $"Failure: %s{errorMsg}"
     
-    let solve_1 (input:seq<string>) =
-        input
-        |> Seq.map (fun line ->
-            match run lineParser line with
-            | Success _ -> 0
-            | Failure(_, error, _) ->
-                if error.Position.Index < line.Length then
-                    match line[error.Position.Index |> int] with
-                    | ')' -> 3
-                    | ']' -> 57
-                    | '}' -> 1197
-                    | '>' -> 25137
-                    | _ -> failwith "oops"
-                    
-                else 0
-        )
-        |> Seq.sum
+   
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let result =
+            input
+            |> Seq.map (fun line ->
+                match run lineParser line with
+                | Success _ -> 0
+                | Failure(_, error, _) ->
+                    if error.Position.Index < line.Length then
+                        match line[error.Position.Index |> int] with
+                        | ')' -> 3
+                        | ']' -> 57
+                        | '}' -> 1197
+                        | '>' -> 25137
+                        | _ -> failwith "oops"
+                        
+                    else 0
+            )
+            |> Seq.sum
             
+        Assert.Equal(388713, result)
+
     let isClosingChar char = char = ")" || char = "]" || char = "}" || char = ">" 
     
     type Status = | Complete of string list | Incomplete of string list
@@ -81,7 +87,7 @@ module Day10 =
                         autocomplete (string + possibleClosing) (Incomplete (characters @ [possibleClosing]))
                     else failwith "syntax error"
     
-    let solve_2 input =
+    let ``part2: actual input`` () =
         let scores =
             input
             |> Seq.filter (fun line -> run lineParser line
@@ -105,4 +111,6 @@ module Day10 =
             |> Array.ofSeq
             |> Array.sort
             
-        scores[(scores.Length / 2)]
+        let result = scores[(scores.Length / 2)]
+        
+        Assert.Equal(3539961434L, result)

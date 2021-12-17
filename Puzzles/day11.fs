@@ -2,6 +2,7 @@
 
 open FSharpPlus.Control
 open Puzzles
+open Xunit
 
 module Day11 =
     let input =
@@ -36,7 +37,8 @@ module Day11 =
         
     let resetFlashed field = field |> Array2D.map (fun x -> if x > 9 then 0 else x)
         
-    let solve_1 (input:seq<seq<char>>) =
+    [<Fact>]
+    let ``part1: actual input`` () =
         let initial = array2D input |> Array2D.map (string >> int)
 
         let x_max = (initial.GetLength 0) - 1
@@ -48,15 +50,19 @@ module Day11 =
             |> Seq.map (fun (x, y) -> (x,y), (getSurrounding x y x_max y_max))
             |> Map.ofSeq
             
-        [1 .. 100]
-        |> List.fold (fun (state, flashedCount) _ ->
-            let increased = state |> Array2D.map (fun x -> x + 1)
-            let newField, flashed = flashField increased neighbourMap
-            (newField |> resetFlashed, flashedCount + flashed.Length)
-        ) (initial, 0) |> snd
+        let result =
+            [1 .. 100]
+            |> List.fold (fun (state, flashedCount) _ ->
+                let increased = state |> Array2D.map (fun x -> x + 1)
+                let newField, flashed = flashField increased neighbourMap
+                (newField |> resetFlashed, flashedCount + flashed.Length)
+            ) (initial, 0) |> snd
+    
+        Assert.Equal(1625, result)
+
         
-        
-    let solve_2 (input:seq<seq<char>>) =
+    [<Fact>]
+    let ``part2: actual input`` () =
         let initial = array2D input |> Array2D.map (string >> int)
 
         let x_max = (initial.GetLength 0) - 1
@@ -77,4 +83,6 @@ module Day11 =
             else
                 findSynchronized newField  (step + 1)
         
-        findSynchronized initial 0
+        let result = findSynchronized initial 0
+        
+        Assert.Equal(244, result)

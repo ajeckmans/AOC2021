@@ -25,31 +25,18 @@
         <EmbeddedResource Include="inputs\day14.txt" />
         <Compile Include="inputs\marker.fs" />
         <Compile Include="day1.fs" />
-        <Compile Include="day1.tests.fs" />
         <Compile Include="day2.fs" />
-        <Compile Include="day2.tests.fs" />
         <Compile Include="day3.fs" />
-        <Compile Include="day3.tests.fs" />
         <Compile Include="day4.fs" />
-        <Compile Include="day4.tests.fs" />
         <Compile Include="day5.fs" />
-        <Compile Include="day5.tests.fs" />
         <Compile Include="day6.fs" />
-        <Compile Include="day6.tests.fs" />
         <Compile Include="day7.fs" />
-        <Compile Include="day7.tests.fs" />
         <Compile Include="day8.fs" />
-        <Compile Include="day8.tests.fs" />
         <Compile Include="day9.fs" />
-        <Compile Include="day9.tests.fs" />
         <Compile Include="day10.fs" />
-        <Compile Include="day10.tests.fs" />
         <Compile Include="day11.fs" />
-        <Compile Include="day11.tests.fs" />
         <Compile Include="day12.fs" />
-        <Compile Include="day12.tests.fs" />
         <Compile Include="day14.fs" />
-        <Compile Include="day14.tests.fs" />
     </ItemGroup>
 
     <ItemGroup>

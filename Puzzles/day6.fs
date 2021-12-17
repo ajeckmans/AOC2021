@@ -2,6 +2,7 @@
 
 open FSharpPlus
 open Puzzles
+open Xunit
 
 module Day6 =
     let input = inputs.ReadAllLines "day6.txt"
@@ -16,6 +17,13 @@ module Day6 =
         |> Seq.fold (fun (state: int64 list) _ -> (state[1..] |> updateValueAt 6 ((+) state[0])) @ [state[0]]) input
         |> Seq.sum
         
-    let solve_1 input = run 80 input
-        
-    let solve_2 input = run 256 input
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let result = run 80 input
+        Assert.Equal(371379L, result)
+       
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let result = run 256 input
+        Assert.Equal(1674303997472L, result)
+       

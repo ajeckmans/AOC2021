@@ -3,6 +3,7 @@
 open System.IO
 open FSharpPlus
 open Puzzles
+open Xunit
 
 module Day4 =    
     let input =
@@ -87,3 +88,14 @@ module Day4 =
                  
         getWinningCard input
         
+        
+    [<Fact>]
+    let ``part1: actual input`` () =
+        let result = solve_1 input
+        Assert.Equal(Some 51034, result)
+        
+        
+    [<Fact>]
+    let ``part2: actual input`` () =
+        let result = solve_2 input
+        Assert.Equal(Some 5434, result)
