@@ -16,14 +16,16 @@ module Day10 =
         | RoundBrackets of Token list
    
     let emptyBrackets =
-        (pstring "()" >>% EmptyBrackets )
-        <|> (pstring "[]" >>% EmptyBrackets)
-        <|> (pstring "{}" >>% EmptyBrackets)
-        <|> (pstring "<>" >>% EmptyBrackets) 
-    
+        choice [
+            (skipString "()" >>% EmptyBrackets)
+            (skipString "[]" >>% EmptyBrackets)
+            (skipString "{}" >>% EmptyBrackets)
+            (skipString "<>" >>% EmptyBrackets) 
+        ]
+        
     let token, tokenRef = createParserForwardedToRef<Token, unit>()
 
-    let list s e f = between (pstring s) (pstring e) (many token |>> f)
+    let list s e f = between (skipString s) (skipString e) (many token |>> f)
     
     let squareBrackets = (list "[" "]" SquareBrackets)
     let curlyBrackets =  (list "{" "}" CurlyBrackets)
