@@ -7,7 +7,7 @@ open Xunit
 
 module Day12 =
     let input () =
-       inputs.ReadAllLines "day12.txt"
+       inputs.readAllLines "day12.txt"
        |> Seq.map (sscanf "%s-%s")
        |> List.ofSeq
        

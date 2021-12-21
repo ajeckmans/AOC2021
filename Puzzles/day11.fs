@@ -6,7 +6,7 @@ open Xunit
 
 module Day11 =
     let input =
-       inputs.ReadAllLines "day11.txt"
+       inputs.readAllLines "day11.txt"
        |> Seq.map (fun x -> x :> seq<char>)
         
         

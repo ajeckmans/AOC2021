@@ -5,7 +5,7 @@ open Puzzles
 open Xunit
 
 module Day7 =
-    let input f = inputs.ReadAllLines "day7.txt" |> Seq.map (String.split [","] >> Seq.map f) |> Seq.head
+    let input f = inputs.readAllLines "day7.txt" |> Seq.map (String.split [","] >> Seq.map f) |> Seq.head
 
     [<Fact>]
     let ``part1: actual input`` () =

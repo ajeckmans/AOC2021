@@ -5,7 +5,7 @@ open Puzzles
 open Xunit
 
 module Day5 =
-    let input = inputs.ReadAllLines "day5.txt"
+    let input = inputs.readAllLines "day5.txt"
                 |> Seq.map (sscanf "%d,%d -> %d,%d" >> fun (ax, ay, bx, by) -> if  ax < bx then (ax, ay), (bx, by) else (bx, by), (ax, ay))
                 |> List.ofSeq
 

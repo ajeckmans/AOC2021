@@ -5,7 +5,7 @@ open Puzzles
 open Xunit
 
 module Day6 =
-    let input = inputs.ReadAllLines "day6.txt"
+    let input = inputs.readAllLines "day6.txt"
                 |> Seq.map (String.split [","] >> Seq.map int)
                 |> Seq.head
                 |> Seq.fold (fun state x -> state |> List.updateAt x (state[x] + 1L)) (List.init 9 (fun _ -> 0L))

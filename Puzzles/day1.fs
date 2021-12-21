@@ -3,7 +3,7 @@
 open Xunit
 
 module Day1 =
-    let input = inputs.ReadAllLines "day1.txt" |> Seq.map int
+    let input = inputs.readAllLines "day1.txt" |> Seq.map int
 
     let countIncreasing map input =
         input

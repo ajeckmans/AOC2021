@@ -6,7 +6,7 @@ open Puzzles
 open Xunit
 
 module Day3 =
-    let input = inputs.ReadAllLines "day3.txt" |> List.ofSeq
+    let input = inputs.readAllLines "day3.txt" |> List.ofSeq
 
     [<Fact>]
     let ``part1: actual input`` () =

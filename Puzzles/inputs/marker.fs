@@ -9,10 +9,10 @@ module inputs =
         let assembly = Assembly.GetAssembly(typeof<marker>)
         assembly.GetManifestResourceStream("Puzzles.inputs." + name)
         
-    let ReadAllLines name =
+    let readAllLines name =
          seq {
             use stream = GetResourceStream(name)
             use reader = new StreamReader(stream)
             
-            while not reader.EndOfStream do reader.ReadLine()
+            while not reader.EndOfStream do yield reader.ReadLine()
         }

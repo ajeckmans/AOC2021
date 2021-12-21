@@ -7,7 +7,7 @@ open FParsec
 open Xunit
 
 module Day10 =
-    let input = inputs.ReadAllLines "day10.txt"
+    let input = inputs.readAllLines "day10.txt"
        
     type Token =
         | EmptyBrackets

@@ -10,7 +10,7 @@ module Day2 =
         | Down of int
         | Up of int
     
-    let input = inputs.ReadAllLines "day2.txt"
+    let input = inputs.readAllLines "day2.txt"
                 |> Seq.map (sscanf "%s %i" >> fun (instr, num) ->
                         match instr with
                         | "forward" -> Forward num

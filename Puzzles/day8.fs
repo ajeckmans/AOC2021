@@ -6,7 +6,7 @@ open Puzzles
 open Xunit
 
 module Day8 =
-    let input = inputs.ReadAllLines "day8.txt"
+    let input = inputs.readAllLines "day8.txt"
                 |> Seq.map ( sscanf "%s | %s" >> (fun (signal, output) -> String.split [" "] signal, String.split [" "] output ))
        
        
